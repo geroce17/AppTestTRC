@@ -1,0 +1,232 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container">
+    <div id="inbox_container" class="col-5">
+        <header class="inbox_header">
+            <div class="jumbotron" style="margin-bottom: 0px; padding: 2rem 1rem">
+                <div class="row">
+                    <div class="col-8">
+                        <h5>Formulario de registro de usuario</h5>
+                        <p style="margin-top: 15px">
+                            <i class="bi bi-stopwatch"></i>
+                            Te quedan 5 minutos
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <i class="bi bi-clipboard" style="font-size: 70px; text-align: right"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="progress" style="height: 2px;">
+                <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </header>
+        <form class="scrollhidden" style="height: 45vh; background-color: whitesmoke; border-radius: 0px 0px 5px 5px; overflow-y:scroll;">
+            @await Component.InvokeAsync("FormNombre")
+
+            <div id="msgFullName" style="width: 100%; display: none;" class="msg-form">
+                <div class="card offset-1 col-11 border-0" style="background-color: #F8BBD0">
+                    <div class="card-body" style="">
+                        <label id="fullName" class="font-weight-bold">
+
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @await Component.InvokeAsync("FormFechaNacimiento")
+
+            <div id="msgBirthdate" style="width: 100%; display: none;" class="msg-form">
+                <div class="card offset-1 col-11 border-0" style="background-color: #F8BBD0">
+                    <div class="card-body" style="">
+                        <label id="birthdate" class="font-weight-bold">
+
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @await Component.InvokeAsync("FormContacto")
+
+            <div id="msgContact" style="width: 100%; display: none;" class="msg-form">
+                <div class="card offset-1 col-11 border-0" style="background-color: #F8BBD0">
+                    <div class="card-body" style="">
+                        <label id="contact" class="font-weight-bold">
+
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%; padding: 0px 15px;" class="mb-3">
+                <input type="button" name="btnIniciar" id="btnIniciar" value="Iniciar" class="btn btn-dark col-12" style="display: none;" onclick="submitForm()"/>
+            </div>
+
+            <div id="msgUserCreated" style="width: 100%; display: none;" class="msg-form">
+                <div class="card offset-1 col-11 border-0" style="background-color: #F8BBD0">
+                    <div class="card-body" style="">
+                        <label id="user" class="font-weight-bold">
+
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var user = {
+        name: "",
+        secondName: "",
+        lastname: "",
+        secondLastname: "",
+        email: "",
+        phone: "",
+        birthdate: ""
+    }
+
+    $(document).ready(function () {
+
+    });
+
+    $("#formFullName :input").keyup(function () {
+        displayFullName();
+    })
+
+    $("#formBirthdate :input").keyup(function () {
+        displayBirthday();
+    })
+
+    $("#formContact :input").keyup(function () {
+        displayContact();
+    })
+
+    function showFullName() {
+        document.querySelector("#msgFullName").style.display = "block";
+    }
+
+    function hideFullName() {
+        document.querySelector("#msgFullName").style.display = "none";
+    }
+
+    function displayFullName() {
+        let name = document.getElementById("name");
+        let secondName = document.getElementById("secondName");
+        var lastname = document.getElementById("lastname");
+        var secondLastname = document.getElementById("secondLastname");
+
+        user.name = name.value;
+        user.secondName = secondName.value;
+        user.lastname = lastname.value;
+        user.secondLastname = secondLastname.value;
+
+        var msgFullName = document.getElementById("fullName");
+        msgFullName.innerHTML = name.value + " " + secondName.value + " " + lastname.value + " " + secondLastname.value;
+
+        if (msgFullName.innerHTML != "") {
+            showFullName();
+        }
+        else {
+            hideFullName();
+        }
+    }
+
+    function showBirthdate() {
+        document.querySelector("#msgBirthdate").style.display = "block";
+    }
+
+    function hideBirthdate() {
+        document.querySelector("#msgBirthdate").style.display = "none";
+    }
+
+    function displayBirthday() {
+        let day = document.getElementById("day");
+        let month = document.getElementById("month");
+        var year = document.getElementById("year");
+
+        user.birthdate = year.value + "-" + month.value + "-" + day.value;
+
+        var msgBirthdate = document.getElementById("birthdate");
+        /*msgBirthdate.innerHTML = year.value + "-" + month.value + "-" + day.value;*/
+        msgBirthdate.innerHTML = day.value + "-" + month.value + "-" + year.value;
+
+        if (msgBirthdate.innerHTML != "") {
+            showBirthdate();
+        }
+        else {
+            hideBirthdate();
+        }
+    }
+
+    function showContact() {
+        document.querySelector("#msgContact").style.display = "block";
+        document.querySelector("#btnIniciar").style.display = "block";
+    }
+
+    function hideContact() {
+        document.querySelector("#msgContact").style.display = "none";
+        document.querySelector("#btnIniciar").style.display = "none";
+    }
+
+    function displayContact() {
+        let email = document.getElementById("email");
+        let phone = document.getElementById("phone");
+
+        user.email = email.value;
+        user.phone = phone.value;
+
+        var msgContact = document.getElementById("contact");
+        msgContact.innerHTML = `
+            Correo electrónimo: ${email.value}
+            <br>
+            Teléfono: ${phone.value}
+        `;
+
+        if (msgContact.innerHTML != "") {
+            showContact();
+        }
+        else {
+            hideContact();
+        }
+    }
+
+    function submitForm() {
+        var path = "https://localhost:44398/api";
+
+        $.ajax({
+            url: `${path}/users`,
+            method: "post",
+            headers: {
+                "contenty-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "https://localhost:44398/api"
+            },
+            data: {
+                name: user.name,
+                second_name: user.secondName,
+                lastname: user.lastname,
+                second_lastname: user.secondLastname,
+                email: user.email,
+                phone: user.phone,
+                birthdate: user.birthdate
+            },
+            success: function (data) {
+                document.getElementById("msgUserCreated").style.display = "block";
+                document.getElementById("user").innerHTML = `
+                    Fecha: ${data.Birthdate}<br/>
+                    Correo electrónico: ${data.Email}<br/>
+                    Teléfono: ${data.Phone}<br/>
+                    Nombre: ${data.Name} ${data.SecondName == undefined ? '' : data.SecondName} ${data.Lastname} ${data.SecondLastname == undefined ? '' : data.SecondLastname}<br/>
+                `;
+
+            }
+        })
+    }
+
+</script>

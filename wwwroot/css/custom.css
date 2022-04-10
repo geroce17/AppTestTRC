@@ -1,0 +1,26 @@
+﻿.jumbotron {
+    background-color: #F8BBD0 !important;
+}
+
+#btnIniciar {
+    background-color: #E91E63;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollhidden::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollhidden {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.img-profile {
+    border-radius: 30%;
+}
+
+.msg-form {
+    font-size: 14px !important;
+}
